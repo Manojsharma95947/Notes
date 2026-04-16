@@ -20,7 +20,8 @@ main()
   });
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/notes");
+  const dbUrl = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/notes";
+  await mongoose.connect(dbUrl);
 }
 
 app.get("/", (req, res) => {
