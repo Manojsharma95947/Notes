@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes Sharing Website</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <header>Notes Sharing Website</header>
+  <div class="container">
+    <div class="topbar">
+      <form method="GET" action="/notes/new">
+        <button class="btn">Add Notes</button>
+      </form>
+    </div>
+    <div class="list">
+      <% if (notes.length===0) { %>
+        <p class="empty">No notes yet. Create one to get started.</p>
+        <% } %>
+          <% for (let i=0; i < notes.length; i++) { %>
+            <% let note=notes[i]; %>
+              <div class="card">
+                <div>
+                  <h3>
+                    <%= note.title %>
+                  </h3>
+                  <p>
+                    <%= note.msg %>
+                  </p>
+                  <p class="detail-date">
+                    <%= note.created_at.toDateString() %> · <%= note.created_at.toLocaleTimeString([], { hour: '2-digit'
+                        , minute: '2-digit' }) %>
+                  </p>
+                </div>
+                <form method="GET">
+
+                  <div class="actions">
+                    <button type="submit" formaction="/notes/<%= note.id %>" class="btn-icon">👁️</button>
+                    <button type="submit" formaction="/notes/<%= note.id %>/edit" class="btn-icon">✏️</button>
+                    <button type="submit" formmethod="POST" formaction="/notes/<%= note.id %>?_method=DELETE" class="btn-icon">🗑️</button>
+                  </div>
+                </form>
+              </div>
+              <% } %>
+    </div>
+  </div>
+
+
+  <!-- Detail View -->
+  <div id="detailModal" class="modal">
+    <div class="modal-box detail-box">
+      <div class="detail-header">
+        <div>
+          <h3 id="detailTitle">Notes Details</h3>
+          <p id="detailDate" class="detail-date">Created on: —</p>
+        </div>
+        <button class="icon-btn" onclick="closeDetail()" aria-label="Close detail view">×</button>
+      </div>
+      <div id="detailBody" class="detail-body"></div>
+      <div class="modal-actions">
+        <button class="btn secondary " onclick="closeDetail()" style="margin-top: 5px;">Back to Notes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="index.js"></script> -->
+  <script>
+
+    function openModal(i = null) {
+      editIndex = i;
+      const m = document.getElementById('modal');
+      m.classList.add('show');
+      document.getElementById('modalTitle').innerText = i === null ? 'New Note' : 'Edit Note';
+      document.getElementById('title').value = i === null ? '' : notes[i].title;
+      document.getElementById('content').value = i === null ? '' : notes[i].content;
+    }
+  </script>
+</body>
+
+</html>

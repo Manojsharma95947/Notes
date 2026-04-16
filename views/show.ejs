@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= note.title %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="modal show">
+      <div class="modal-box detail-box">
+        <div class="detail-header">
+          <div>
+            <h3><%= note.title %></h3>
+            <p class="detail-date">Created on: <%= note.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) %></p>
+          </div>
+          <a href="/notes" class="icon-btn cross" aria-label="Close detail view">×</a>
+        </div>
+        <div class="detail-body">
+          <p><%= note.msg %></p>
+        </div>
+        <div class="modal-actions">
+          <a href="/notes" class="btn secondary">Back to Notes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

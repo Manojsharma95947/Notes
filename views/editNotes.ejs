@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Note</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <form method="POST" action="/notes/<%= note.id %>?_method=PUT">
+        <div id="modal" class="modal show">
+            <div class="modal-box">
+                <h3 id="modalTitle">Edit Note : <%= note.id %></h3>
+                <input id="title" class="input" value="<%= note.title %>"  name="title" />
+                <textarea id="content" rows="6" value="<%= note.msg %>" name="msg"></textarea>
+                <input type="file" class="input" id="doc" name="attachment">
+                <div class="modal-actions">
+                    <button type="button" class="btn secondary" onclick="window.location.href='/notes'">Cancel</button>
+                    <button type="submit" class="btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
